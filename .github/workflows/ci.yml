@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Dipendenze dei test
+        run: npm ci
+
+      - name: Dipendenze dell'app di esempio
+        run: npm ci --prefix demo-angular
+
+      - name: Browser per Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Test (modalità normale, senza decorazioni)
+        run: npm test
+
+      - name: Il codice di debug non deve essere nel bundle di produzione
+        run: npm run check:prod

@@ -1,0 +1,18 @@
+{
+  "name": "playwright-debug-enhanced",
+  "description": "Proof of concept: rendere visibili a un essere umano le azioni e le navigazioni di un test Playwright, con demo su Angular",
+  "scripts": {
+    "test": "playwright test",
+    "test:show": "cross-env PW_SHOW_ACTIONS=1 playwright test --headed",
+    "test:video": "cross-env PW_SHOW_ACTIONS=1 playwright test",
+    "check:prod": "node scripts/check-prod-bundle.mjs",
+    "setup": "npm install --prefix demo-angular && playwright install chromium"
+  },
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "cross-env": "^10.1.0"
+  },
+  "private": true,
+  "license": "MIT"
+}
